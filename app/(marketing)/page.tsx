@@ -1,3 +1,4 @@
+import Footer from "./_components/footer";
 import Heading from "./_components/heading";
 import HeroSection from "./_components/hero-section";
 
@@ -8,6 +9,7 @@ export default function MarketingPage() {
         <Heading />
         <HeroSection />
       </div>
+      <Footer />
     </div>
   );
 }
