@@ -1,6 +1,7 @@
 "use client";
 
 import Logo from "@/components/logo";
+import ThemeToggle from "@/components/theme-toggle";
 import useScrollTop from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,7 @@ export default function Navbar() {
       <Logo />
       <div className="flex items-center justify-between gap-x-2 w-full md:ml-auto md:justify-end">
         Login
+        <ThemeToggle />
       </div>
     </div>
   );
