@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <div
       className={cn(
-        "fixed z-50 top-0 bg-background flex items-center w-full p-6 transition-all",
+        "fixed z-50 top-0 bg-background flex items-center w-full p-6 transition-all dark:bg-slate-800",
         scrolled && "border-b shadow-sm"
       )}
     >
