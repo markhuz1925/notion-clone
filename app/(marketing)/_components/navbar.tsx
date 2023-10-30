@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 import useScrollTop from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils";
-import { SignInButton } from "@clerk/clerk-react";
+import { SignInButton, UserButton } from "@clerk/clerk-react";
 import { useConvexAuth } from "convex/react";
+import Link from "next/link";
 
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const scrolled = useScrollTop();
+
   return (
     <div
       className={cn(
@@ -32,6 +34,14 @@ export default function Navbar() {
             <SignInButton mode="modal">
               <Button size="sm">Get Jotion free</Button>
             </SignInButton>
+          </>
+        )}
+        {isAuthenticated && !isLoading && (
+          <>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/documents">Enter Jotion</Link>
+            </Button>
+            <UserButton afterSignOutUrl="/" />
           </>
         )}
         <ThemeToggle />

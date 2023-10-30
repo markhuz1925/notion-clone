@@ -22,7 +22,7 @@ export default function Logo() {
         alt="Jotion"
         width="40"
         height="40"
-        className="light:hidden"
+        className="hidden dark:block"
       />
       <p className={cn("font-semibold", font.className)}>Jotion</p>
     </div>
