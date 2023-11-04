@@ -2,7 +2,7 @@
 
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import {
   ChevronsLeftIcon,
   MenuIcon,
@@ -18,7 +18,6 @@ import Item from "./item";
 import UserItem from "./user-item";
 
 export default function Navigation() {
-  const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -145,11 +144,7 @@ export default function Navigation() {
             icon={PlusCircleIcon}
           />
         </div>
-        <div className="mt-4">
-          {documents?.map((document) => (
-            <p key={document._id}>{document.title}</p>
-          ))}
-        </div>
+        <div className="mt-4"></div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
