@@ -1,16 +1,19 @@
 "use client";
 
+import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
-import { ChevronsLeftIcon, MenuIcon } from "lucide-react";
+import { useMutation, useQuery } from "convex/react";
+import { ChevronsLeftIcon, MenuIcon, PlusCircleIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
+import Item from "./item";
 import UserItem from "./user-item";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
 
 export default function Navigation() {
   const documents = useQuery(api.documents.get);
+  const create = useMutation(api.documents.create);
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isResizingRef = useRef(false);
@@ -97,6 +100,15 @@ export default function Navigation() {
     }
   }, [pathname, isMobile]);
 
+  const onCreate = () => {
+    const promise = create({ title: "Untitled" });
+    toast.promise(promise, {
+      loading: "Creating note...",
+      success: "Note created!",
+      error: "Failed to create note",
+    });
+  };
+
   return (
     <>
       <aside
@@ -119,6 +131,11 @@ export default function Navigation() {
         </div>
         <div>
           <UserItem />
+          <Item
+            onClick={onCreate}
+            label="Create a note"
+            icon={PlusCircleIcon}
+          />
         </div>
         <div className="mt-4">
           {documents?.map((document) => (
