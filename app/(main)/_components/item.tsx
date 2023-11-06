@@ -3,7 +3,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { ChevronDownIcon, ChevronRightIcon, LucideIcon } from "lucide-react";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  LucideIcon,
+  PlusIcon,
+} from "lucide-react";
 
 interface Props {
   id?: Id<"documents">;
@@ -69,6 +74,13 @@ export default function Item({
         <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono font-medium text-[10px] text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>K
         </kbd>
+      )}
+      {!!id && (
+        <div className="flex items-center gap-x-2 ml-auto">
+          <div className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-slate-300 dark:hover:bg-slate-600">
+            <PlusIcon className="w-4 h-4 text-muted-foreground" />
+          </div>
+        </div>
       )}
     </div>
   );
