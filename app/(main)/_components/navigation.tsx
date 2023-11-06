@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
+import DocumentList from "./document-list";
 import Item from "./item";
 import UserItem from "./user-item";
 
@@ -144,7 +145,9 @@ export default function Navigation() {
             icon={PlusCircleIcon}
           />
         </div>
-        <div className="mt-4"></div>
+        <div className="mt-4">
+          <DocumentList />
+        </div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
