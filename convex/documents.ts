@@ -174,11 +174,11 @@ export const unArchived = mutation({
       }
     }
 
-    await ctx.db.patch(args.id, options);
+    const document = await ctx.db.patch(args.id, options);
 
     recursiveUnArchive(args.id);
 
-    return existingDocument;
+    return document;
   },
 });
 
