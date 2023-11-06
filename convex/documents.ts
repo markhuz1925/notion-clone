@@ -122,3 +122,62 @@ export const getArchived = query({
     return documents;
   },
 });
+
+export const unArchived = mutation({
+  args: {
+    id: v.id("documents"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const userId = identity.subject;
+
+    const existingDocument = await ctx.db.get(args.id);
+
+    if (!existingDocument) {
+      throw new Error("Document not found");
+    }
+
+    if (existingDocument.userId !== userId) {
+      throw new Error("Not authorized");
+    }
+
+    const recursiveUnArchive = async (documentId: Id<"documents">) => {
+      const children = await ctx.db
+        .query("documents")
+        .withIndex("by_user_parent", (q) =>
+          q.eq("userId", userId).eq("parentDocument", documentId)
+        )
+        .collect();
+
+      for (const child of children) {
+        await ctx.db.patch(child._id, {
+          isArchived: false,
+        });
+        await recursiveUnArchive(child._id);
+      }
+    };
+
+    const options: Partial<Doc<"documents">> = {
+      isArchived: false,
+    };
+
+    if (existingDocument.parentDocument) {
+      const parent = await ctx.db.get(existingDocument.parentDocument);
+
+      if (parent?.isArchived) {
+        options.isArchived = undefined;
+      }
+    }
+
+    await ctx.db.patch(args.id, options);
+
+    recursiveUnArchive(args.id);
+
+    return existingDocument;
+  },
+});
