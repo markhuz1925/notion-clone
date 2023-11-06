@@ -10,6 +10,7 @@ import {
   PlusIcon,
   SearchIcon,
   SettingsIcon,
+  Trash2Icon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
@@ -18,6 +19,12 @@ import { useMediaQuery } from "usehooks-ts";
 import DocumentList from "./document-list";
 import Item from "./item";
 import UserItem from "./user-item";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import TrashBox from "./trash-box";
 
 export default function Navigation() {
   const create = useMutation(api.documents.create);
@@ -150,6 +157,17 @@ export default function Navigation() {
           <DocumentList />
           <Item onClick={onCreate} icon={PlusIcon} label="Add new note" />
         </div>
+        <Popover>
+          <PopoverTrigger className="w-full mt-4">
+            <Item label="Trash" icon={Trash2Icon} />
+          </PopoverTrigger>
+          <PopoverContent
+            side={isMobile ? "bottom" : "right"}
+            className="w-72 p-0"
+          >
+            <TrashBox />
+          </PopoverContent>
+        </Popover>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
