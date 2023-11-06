@@ -25,6 +25,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import TrashBox from "./trash-box";
+import { useSearch } from "@/hooks/use-search";
 
 export default function Navigation() {
   const create = useMutation(api.documents.create);
@@ -35,6 +36,7 @@ export default function Navigation() {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+  const search = useSearch();
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
@@ -145,7 +147,12 @@ export default function Navigation() {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={SearchIcon} isSearch onClick={() => {}} />
+          <Item
+            label="Search"
+            icon={SearchIcon}
+            isSearch
+            onClick={search.onOpen}
+          />
           <Item label="Settings" icon={SettingsIcon} onClick={() => {}} />
           <Item
             onClick={onCreate}
