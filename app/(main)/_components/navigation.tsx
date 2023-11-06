@@ -7,6 +7,7 @@ import {
   ChevronsLeftIcon,
   MenuIcon,
   PlusCircleIcon,
+  PlusIcon,
   SearchIcon,
   SettingsIcon,
 } from "lucide-react";
@@ -141,12 +142,13 @@ export default function Navigation() {
           <Item label="Settings" icon={SettingsIcon} onClick={() => {}} />
           <Item
             onClick={onCreate}
-            label="Create a note"
+            label="Create new note"
             icon={PlusCircleIcon}
           />
         </div>
         <div className="mt-4">
           <DocumentList />
+          <Item onClick={onCreate} icon={PlusIcon} label="Add new note" />
         </div>
         <div
           onMouseDown={handleMouseDown}
