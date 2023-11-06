@@ -1,11 +1,12 @@
 "use client";
 
+import ConfirmModal from "@/components/modals/confirm-modal";
 import { Input } from "@/components/ui/input";
 import Spinner from "@/components/ui/spinner";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
-import { SearchIcon, Trash2Icon, TrashIcon, Undo2Icon } from "lucide-react";
+import { SearchIcon, Trash2Icon, Undo2Icon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -93,13 +94,14 @@ export default function TrashBox() {
               >
                 <Undo2Icon className="w-4 h-4 text-muted-foreground" />
               </div>
-              <div
-                role="button"
-                onClick={(e) => onPermanentDelete(document._id)}
-                className="group rounded-sm p-2 hover:bg-red-50"
-              >
-                <Trash2Icon className="w-4 h-4 text-muted-foreground group-hover:text-red-500" />
-              </div>
+              <ConfirmModal onConfirm={() => onPermanentDelete(document._id)}>
+                <div
+                  role="button"
+                  className="rounded-sm p-2 hover:bg-slate-200"
+                >
+                  <Trash2Icon className="w-4 h-4 text-muted-foreground" />
+                </div>
+              </ConfirmModal>
             </div>
           </div>
         ))}
