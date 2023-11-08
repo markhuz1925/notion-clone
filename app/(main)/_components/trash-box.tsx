@@ -90,14 +90,14 @@ export default function TrashBox() {
               <div
                 role="button"
                 onClick={(e) => onUnArchive(e, document._id)}
-                className="rounded-sm p-2 hover:bg-slate-200"
+                className="rounded-sm p-2 hover:bg-slate-200 dark:hover:bg-slate-600"
               >
                 <Undo2Icon className="w-4 h-4 text-muted-foreground" />
               </div>
               <ConfirmModal onConfirm={() => onPermanentDelete(document._id)}>
                 <div
                   role="button"
-                  className="rounded-sm p-2 hover:bg-slate-200"
+                  className="rounded-sm p-2 hover:bg-slate-200 dark:hover:bg-slate-600"
                 >
                   <Trash2Icon className="w-4 h-4 text-muted-foreground" />
                 </div>
