@@ -108,7 +108,7 @@ export default function Item({
       {!!id && (
         <div
           role="button"
-          className="h-full rounded-sm hover:bg-slate-300 dark:bg-slate-600 mr-1"
+          className="h-full mr-1 rounded-sm hover:bg-slate-300 dark:hover:bg-slate-600"
           onClick={handleExpand}
         >
           <ChevronIcon className="w-4 h-4 shrink-0 text-muted-foreground/50" />
