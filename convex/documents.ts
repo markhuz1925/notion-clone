@@ -8,10 +8,7 @@ export const getSidebar = query({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
     const documents = await ctx.db
@@ -34,10 +31,7 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
@@ -59,22 +53,13 @@ export const archive = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
-
-    if (!existingDocument) {
-      throw new Error("Document not found");
-    }
-
-    if (existingDocument.userId !== userId) {
-      throw new Error("Not authorized");
-    }
+    if (!existingDocument) throw new Error("Document not found");
+    if (existingDocument.userId !== userId) throw new Error("Not authorized");
 
     const recursiveArchive = async (documentId: Id<"documents">) => {
       const children = await ctx.db
@@ -105,10 +90,7 @@ export const archive = mutation({
 export const getArchived = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
@@ -129,22 +111,13 @@ export const unArchived = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
-
-    if (!existingDocument) {
-      throw new Error("Document not found");
-    }
-
-    if (existingDocument.userId !== userId) {
-      throw new Error("Not authorized");
-    }
+    if (!existingDocument) throw new Error("Document not found");
+    if (existingDocument.userId !== userId) throw new Error("Not authorized");
 
     const recursiveUnArchive = async (documentId: Id<"documents">) => {
       const children = await ctx.db
@@ -169,9 +142,7 @@ export const unArchived = mutation({
     if (existingDocument.parentDocument) {
       const parent = await ctx.db.get(existingDocument.parentDocument);
 
-      if (parent?.isArchived) {
-        options.isArchived = undefined;
-      }
+      if (parent?.isArchived) options.isArchived = undefined;
     }
 
     const document = await ctx.db.patch(args.id, options);
@@ -188,22 +159,13 @@ export const permanentDelete = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
-
-    if (!existingDocument) {
-      throw new Error("Document not found");
-    }
-
-    if (existingDocument.userId !== userId) {
-      throw new Error("Not authorized");
-    }
+    if (!existingDocument) throw new Error("Document not found");
+    if (existingDocument.userId !== userId) throw new Error("Not authorized");
 
     const document = await ctx.db.delete(args.id);
 
@@ -214,10 +176,7 @@ export const permanentDelete = mutation({
 export const getSearch = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
