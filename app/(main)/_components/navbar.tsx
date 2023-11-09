@@ -5,6 +5,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
+import Banner from "./banner";
 import Title from "./title";
 
 export default function Navbar({
@@ -43,6 +44,7 @@ export default function Navbar({
           <Title initialData={document} />
         </div>
       </nav>
+      {document.isArchived && <Banner documentId={document._id} />}
     </>
   );
 }
