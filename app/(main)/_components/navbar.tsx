@@ -1,11 +1,11 @@
 "use client";
 
-import Spinner from "@/components/ui/spinner";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
+import Title from "./title";
 
 export default function Navbar({
   isCollapsed,
@@ -20,7 +20,11 @@ export default function Navbar({
   });
 
   if (document === undefined) {
-    return <Spinner size="lg" />;
+    return (
+      <nav className="flex items-center bg-background dark:bg-slate-900 px-3 py-2 w-full">
+        <Title.Skeleton />
+      </nav>
+    );
   }
 
   if (document === null) return null;
@@ -35,7 +39,9 @@ export default function Navbar({
             className="h-6 w-6 text-muted-foreground"
           />
         )}
-        <div className="flex itemx-center justify-between w-full">Navbar</div>
+        <div className="flex itemx-center justify-between w-full">
+          <Title initialData={document} />
+        </div>
       </nav>
     </>
   );
