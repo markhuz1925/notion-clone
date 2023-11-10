@@ -11,6 +11,7 @@ import { ImageIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CoverImage({
   url,
@@ -74,3 +75,7 @@ export default function CoverImage({
     </div>
   );
 }
+
+CoverImage.Skeleton = function CoverSkeleton() {
+  return <Skeleton className="w-full h-[12vh]" />;
+};
