@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import IconPicker from "./icon-picker";
 import { Button } from "./ui/button";
+import { useCoverImage } from "@/hooks/use-cover-image";
 
 export default function Toolbar({
   initialData,
@@ -21,6 +22,7 @@ export default function Toolbar({
   const inputRef = useRef<React.ElementRef<"textarea">>(null);
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
+  const coverImage = useCoverImage();
 
   const enableInput = () => {
     if (preview) return;
@@ -99,7 +101,7 @@ export default function Toolbar({
         )}
         {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={coverImage.onOpen}
             variant="outline"
             size="sm"
             className="text-muted-foreground text-xs"
