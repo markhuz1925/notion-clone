@@ -18,8 +18,8 @@ export default function DocumentPage({
 
   if (document === undefined) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <Spinner size="lg" />
+      <div>
+        <CoverImage.Skeleton />
       </div>
     );
   }
