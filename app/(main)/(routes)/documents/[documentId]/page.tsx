@@ -1,11 +1,12 @@
 "use client";
 
 import CoverImage from "@/components/cover-image";
-import Editor from "@/components/editor";
 import Toolbar from "@/components/toolbar";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
+import { useMemo } from "react";
+import dynamic from "next/dynamic";
 
 export default function DocumentPage({
   params,
@@ -16,6 +17,11 @@ export default function DocumentPage({
     documentId: params.documentId,
   });
   const update = useMutation(api.documents.update);
+
+  const Editor = useMemo(
+    () => dynamic(() => import("@/components/editor"), { ssr: false }),
+    []
+  );
 
   if (document === undefined) {
     return (
